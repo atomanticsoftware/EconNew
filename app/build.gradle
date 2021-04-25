@@ -1,0 +1,54 @@
+apply plugin: 'com.android.application'
+apply from: '../config-android.gradle'
+
+android {
+    defaultConfig {
+        applicationId "com.bigtech.econ"
+    }
+    signingConfigs {
+        debugConfig {
+            storeFile file('econ-dev-key.jks')
+            storePassword 'econandroid'
+            keyAlias 'econ-dev'
+            keyPassword 'econandroid'
+        }
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false
+            shrinkResources false
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debugConfig
+        }
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            def version = defaultConfig.versionName
+            def date = new Date()
+            def formattedDate = date.format("yyMMdd_HHmmss")
+            outputFileName = "Econ-v${version}-${variant.name}-${formattedDate}.apk"
+        }
+    }
+}
+
+dependencies {
+    def work_version = "2.2.0"
+
+    implementation config.kotlinStdlib
+    implementation supportDependencies.appCompat
+    implementation supportDependencies.constraintLayout
+    implementation supportDependencies.material
+    implementation retrofitDependencies.core
+    implementation retrofitDependencies.gson
+    implementation okhttpDependencies.core
+    implementation okhttpDependencies.logging
+    implementation "androidx.work:work-runtime:$work_version"
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+}

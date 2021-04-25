@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Economic Barometer</string>
+    <string name="app_title">Economic Barometer</string>
+    <string name="update_message">Updated: %1$s</string>
+    <string name="info">Econonomic Forecast</string>
+    <string name="explanation">The image above represents financial market predictions for 3 ranges in the future: the outermost predicts the next quarter; inside of that ring, the next month, and the centermost is the prediction for the next week.  Green indicates positive, upward movement; red is negative.</string>
+</resources>
